@@ -50,6 +50,8 @@ def makedict(G):
     return {"nodes":nodes_arr,"edges":edges_arr}
 
 def add_edge(f_item, s_item, G):
+    G.add_node(f_item)
+    G.add_node(s_item)
     G.add_edge(f_item, s_item)
     G.add_edge(s_item, f_item)
 
@@ -98,7 +100,7 @@ def calculate_current_root(G):
 
         if len(list(G.nodes)) <= 2:
             search = False
-    return int(list(G.nodes)[0]) - 1
+    return list(G.nodes)
 
 '''
 
@@ -129,7 +131,7 @@ def define_ktree_type(adj):
 
 def w(n,set_n):
     numerator = math.factorial(n)
-    denominator = 1;
+    denominator = 1
     for i,k in enumerate(set_n):
         denominator *= math.pow(i+1,k)
     for k in set_n:
@@ -255,10 +257,12 @@ def relabel(G,n,lab):
 
         graph_relabeled.add_edges([(lab[elem[0]],lab[elem[1]])]) 
         
-    pres = graph_relabeled.get_edgelist()
+    pres = list(set(graph_relabeled.get_edgelist()))
     pres.sort()
 
-    return str(pres)   
+    prep = str(pres).replace(',', '').replace('[', '').replace(']', '').replace('(', '').replace(')', '').replace(' ', '')
+
+    return prep
     
 
 

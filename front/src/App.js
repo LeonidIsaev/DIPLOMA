@@ -75,7 +75,7 @@ function App() {
         }
       }
     },
-    height: "1000px",
+    height: "800px",
     physics: false
   }
   const events = {
@@ -88,14 +88,16 @@ function App() {
       <div className="card-container">
         <Tabs tabPosition='left' type="card" onTabClick={key => {key==='3' && kekLoadTimeStat()}}>
           <TabPane tab="Построение дерева" key="1" >
-            <button onClick={kek}> get </button>
-            <input type='text' value={inputNode} onChange={e=>setInputNode(e.target.value)} placeholder="Node"/>
-            <button onClick={kekAddNode}> add node </button>
-            <input type='text' value={inputEdge1} onChange={e=>setinputEdge1(e.target.value)} placeholder="Edge 1"/>
-            <input type='text' value={inputEdge2} onChange={e=>setinputEdge2(e.target.value)} placeholder="Edge 2"/>
-            <button onClick={kekAddEdge}> add edge </button>
-            <button onClick={kekClear}> clear </button>
-            <button onClick={kekgetCanonicalCode}> canonical code </button>
+            <div className='buttons-group'>
+              <button onClick={kek}> get </button>
+              <input type='text' value={inputNode} onChange={e=>setInputNode(e.target.value)} placeholder="Node"/>
+              <button onClick={kekAddNode}> add node </button>
+              <input type='text' value={inputEdge1} onChange={e=>setinputEdge1(e.target.value)} placeholder="Edge 1"/>
+              <input type='text' value={inputEdge2} onChange={e=>setinputEdge2(e.target.value)} placeholder="Edge 2"/>
+              <button onClick={kekAddEdge}> add edge </button>
+              <button onClick={kekClear}> clear </button>
+              <button onClick={kekgetCanonicalCode}> canonical code </button>
+            </div>
             {canonic_code !== '' &&
               <p>{canonic_code}</p>
             }
@@ -108,24 +110,34 @@ function App() {
             />}
           </TabPane>
           <TabPane tab="Получение к-деревьев из БД" key="2">
-          <input type='text' value={nvalue} onChange={e=>setnvalue(e.target.value)} placeholder="n-value"/>
-          <input type='text' value={kvalue} onChange={e=>setkvalue(e.target.value)} placeholder="k-value"/>
-          <label for="partial">Partial</label>
-          <select id='partial' value={partial} onChange={e=>setPartial(e.target.value)} >
-            <option>None</option>
-            <option>Yes</option>
-            <option>No</option>
-          </select>
-          <button onClick={kekLoadlist}> load </button>
+          <div className='buttons-group'>
+            <input type='text' value={nvalue} onChange={e=>setnvalue(e.target.value)} placeholder="n-value"/>
+            <input type='text' value={kvalue} onChange={e=>setkvalue(e.target.value)} placeholder="k-value"/>
+            <label for="partial">Partial</label>
+            <select id='partial' value={partial} onChange={e=>setPartial(e.target.value)} >
+              <option>None</option>
+              <option>Yes</option>
+              <option>No</option>
+            </select>
+            <button onClick={kekLoadlist}> load </button>
+          </div>
           {graph_list !== null && 
             <Carousel style={contentStyle}>
             {graph_list.map((g,i) => {
-            return  <div key={i}><p>{g.description}</p><div><Graph
-            key={uuidv4()}
-            graph={g.graph}
-            options={options}
-            events={events}
-            /></div></div>})}
+            return <div key={i}>
+              <p style={{color:'white',fontSize:"40px"}}>{g.description}</p>
+              <p style={{color:'white',fontSize:"40px"}}>{g.canonic_code} </p>
+              <div>
+                  <Graph
+                  key={uuidv4()}
+                  graph={g.graph}
+                  options={options}
+                  events={events}
+                  />
+              </div>
+
+            </div>
+          })}
              </Carousel>}      
           </TabPane>
           <TabPane tab="Статистики" key="3">

@@ -39,3 +39,10 @@
   }
 }
 
+.buttons-group {
+  margin: 20px 0;
+}
+
+.buttons-group > * {
+  margin-left: 10px;
+}
